@@ -1,9 +1,10 @@
 package it.gruppostudio.baeejira.model;
 // Generated 12-giu-2017 18.26.46 by Hibernate Tools 5.1.4.Final
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Task implements java.io.Serializable {
 	private String name;
 	private Date startDate;
 	private Date endDate;
-	private Set users = new HashSet(0);
+	private List<User> users = new ArrayList<>();
 
 	public Task() {
 	}
@@ -42,7 +43,7 @@ public class Task implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Task(TaskId id, Project project, Status status, String name, Date startDate, Date endDate, Set users) {
+	public Task(TaskId id, Project project, Status status, String name, Date startDate, Date endDate, List<User> users) {
 		this.id = id;
 		this.project = project;
 		this.status = status;
@@ -118,11 +119,11 @@ public class Task implements java.io.Serializable {
 	@JoinTable(name = "user_has_task", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "task_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public Set getUsers() {
+	public List<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

@@ -1,13 +1,14 @@
 package it.gruppostudio.baeejira.model;
 // Generated 12-giu-2017 18.26.46 by Hibernate Tools 5.1.4.Final
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ public class Status implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private int position;
-	private Set tasks = new HashSet(0);
+	private List<Task> tasks = new ArrayList<>();
 
 	public Status() {
 	}
@@ -32,14 +33,14 @@ public class Status implements java.io.Serializable {
 		this.position = position;
 	}
 
-	public Status(String name, int position, Set tasks) {
+	public Status(String name, int position, List<Task> tasks) {
 		this.name = name;
 		this.position = position;
 		this.tasks = tasks;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
@@ -69,11 +70,11 @@ public class Status implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
-	public Set getTasks() {
+	public List<Task> getTasks() {
 		return this.tasks;
 	}
 
-	public void setTasks(Set tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
 

@@ -1,13 +1,14 @@
 package it.gruppostudio.baeejira.model;
 // Generated 12-giu-2017 18.26.46 by Hibernate Tools 5.1.4.Final
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,7 +24,7 @@ public class Role implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private Set users = new HashSet(0);
+	private List<User> users = new ArrayList<>();
 
 	public Role() {
 	}
@@ -32,13 +33,13 @@ public class Role implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Role(String name, Set users) {
+	public Role(String name, List<User> users) {
 		this.name = name;
 		this.users = users;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
@@ -62,11 +63,11 @@ public class Role implements java.io.Serializable {
 	@JoinTable(name = "user_has_role", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "role_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public Set getUsers() {
+	public List<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

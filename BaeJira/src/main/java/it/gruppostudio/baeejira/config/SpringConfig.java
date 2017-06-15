@@ -5,9 +5,11 @@ import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -22,8 +24,22 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
+@PropertySource({ "classpath:mysql.properties" })
 @ComponentScan(basePackages = "it.gruppostudio.baeejira")
 public class SpringConfig extends WebMvcConfigurerAdapter{
+	
+	
+	@Value("${db.driver}")
+    private String DB_DRIVER;
+ 
+    @Value("${db.password}")
+    private String DB_PASSWORD;
+ 
+    @Value("${db.jdbcurl}")
+    private String DB_URL;
+ 
+    @Value("${db.username}")
+    private String DB_USERNAME;
 	
 	@Bean
     public ViewResolver viewResolver() {
@@ -42,14 +58,14 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
         ComboPooledDataSource dataSource = new ComboPooledDataSource("jupiter");
  
         try {
-            dataSource.setDriverClass("com.mysql.jdbc.Driver");
+            dataSource.setDriverClass(DB_DRIVER);
         } catch (PropertyVetoException pve){
             System.out.println("Cannot load datasource driver (com.mysql.jdbc.Driver) : " + pve.getMessage());
             return null;
         }
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/web_customer_tracker?useSSL=false");
-        dataSource.setUser("root");
-        dataSource.setPassword("pietro");
+        dataSource.setJdbcUrl(DB_PASSWORD);
+        dataSource.setUser(DB_URL);
+        dataSource.setPassword(DB_USERNAME);
         dataSource.setMinPoolSize(5);
         dataSource.setMaxPoolSize(20);
         dataSource.setMaxIdleTime(3000);
@@ -76,8 +92,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
                 new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
-    }
-	
+    }	
 	
 	
 }

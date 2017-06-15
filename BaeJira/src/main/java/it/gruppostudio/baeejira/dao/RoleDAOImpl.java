@@ -1,9 +1,12 @@
 package it.gruppostudio.baeejira.dao;
 // Generated 14-giu-2017 16.52.42 by Hibernate Tools 5.1.4.Final
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,6 +82,23 @@ public class RoleDAOImpl implements RoleDAO {
 			Role instance = entityManager.find(Role.class, id);
 			log.debug("get successful");
 			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see it.gruppostudio.baeejira.dao.RoleDAO#findById(java.lang.Integer)
+	 */
+	@Override
+	public List<Role> getRoles() {
+		log.debug("getting Roles instance");
+		try {
+			// create a query
+			TypedQuery<Role> theQuery = entityManager.createQuery("from Role", Role.class);
+			log.debug("get successful");
+			return theQuery.getResultList();
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
 			throw re;

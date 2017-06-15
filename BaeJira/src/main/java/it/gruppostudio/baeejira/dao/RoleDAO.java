@@ -1,5 +1,7 @@
 package it.gruppostudio.baeejira.dao;
 
+import java.util.List;
+
 import it.gruppostudio.baeejira.model.Role;
 
 public interface RoleDAO {
@@ -11,5 +13,7 @@ public interface RoleDAO {
 	Role merge(Role detachedInstance);
 
 	Role findById(Integer id);
+
+	List<Role> getRoles();
 
 }

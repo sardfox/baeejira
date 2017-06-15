@@ -12,7 +12,7 @@ import it.gruppostudio.baeejira.model.Status;
 
 /**
  * Home object for domain model class Status.
- * @see it.gruppostudio.baeejira.dao.Status
+ * @see it.gruppostudio.baeejira.model.Status
  * @author Hibernate Tools
  */
 @Stateless

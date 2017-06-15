@@ -12,7 +12,7 @@ import it.gruppostudio.baeejira.model.User;
 
 /**
  * Home object for domain model class User.
- * @see it.gruppostudio.baeejira.dao.User
+ * @see it.gruppostudio.baeejira.model.User
  * @author Hibernate Tools
  */
 @Stateless

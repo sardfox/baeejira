@@ -13,7 +13,7 @@ import it.gruppostudio.baeejira.model.TaskId;
 
 /**
  * Home object for domain model class Task.
- * @see it.gruppostudio.baeejira.dao.Task
+ * @see it.gruppostudio.baeejira.model.Task
  * @author Hibernate Tools
  */
 @Stateless

@@ -12,7 +12,7 @@ import it.gruppostudio.baeejira.model.Project;
 
 /**
  * Home object for domain model class Project.
- * @see it.gruppostudio.baeejira.dao.Project
+ * @see it.gruppostudio.baeejira.model.Project
  * @author Hibernate Tools
  */
 @Stateless

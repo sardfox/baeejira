@@ -12,7 +12,7 @@ import it.gruppostudio.baeejira.model.Role;
 
 /**
  * Home object for domain model class Role.
- * @see it.gruppostudio.baeejira.dao.Role
+ * @see it.gruppostudio.baeejira.model.Role
  * @author Hibernate Tools
  */
 @Stateless

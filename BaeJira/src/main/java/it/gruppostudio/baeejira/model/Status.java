@@ -77,4 +77,9 @@ public class Status implements java.io.Serializable {
 		this.tasks = tasks;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Status [id=%s, name=%s, position=%s]", id, name, position);
+	}
+
 }

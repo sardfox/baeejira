@@ -18,12 +18,27 @@ public class RoleServiceImpl implements RoleService {
 	@Qualifier("roleDAO")
 	private RoleDAO roleDAO;
 	
-	/* (non-Javadoc)
-	 * @see it.gruppostudio.baeejira.service.RoleService#getRoles()
-	 */
 	@Override
 	@Transactional
-	public List<Role> getRoles() {
+	public List<Role> getRoles() throws RuntimeException {
 		return roleDAO.getRoles();
+	}
+
+	@Override
+	@Transactional
+	public void saveRole(Role theRole) throws RuntimeException {
+		roleDAO.saveRole(theRole);
+	}
+
+	@Override
+	@Transactional
+	public void deleteRole(Integer id) throws RuntimeException {
+		roleDAO.deleteRole(id);
+	}
+
+	@Override
+	@Transactional
+	public Role getRole(Integer id) throws RuntimeException {
+		return roleDAO.getRole(id);
 	}
 }

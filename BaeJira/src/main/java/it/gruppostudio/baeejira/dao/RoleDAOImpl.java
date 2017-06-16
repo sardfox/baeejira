@@ -33,43 +33,73 @@ public class RoleDAOImpl implements RoleDAO {
 	 * @see it.gruppostudio.baeejira.dao.RoleDAO#findById(java.lang.Integer)
 	 */
 	@Override
-	public List<Role> getRoles() {
-		log.debug("getting Roles instance");
-		
-		// get the current hibernate session
-		Session currentSession = sessionFactory.getCurrentSession();
+	public List<Role> getRoles() throws RuntimeException {
+		log.debug("getting all Roles instances");
+
 		try {
+			// get the current hibernate session
+			Session currentSession = sessionFactory.getCurrentSession();
+			
 			// create a query
 			Query<Role> theQuery = currentSession.createQuery("from Role", Role.class);
 			log.debug("get successful");
 			return theQuery.getResultList();
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
+		} catch (Exception e) {
+			log.error("get failed", e);
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void persist(Role transientInstance) {
-		// TODO Auto-generated method stub
-		
+	public Role getRole(Integer id) throws RuntimeException {
+		log.debug("getting Role instance by id:" + id);
+
+		try {
+			// get the current hibernate session
+			Session currentSession = sessionFactory.getCurrentSession();
+			
+			Role theRole = currentSession.get(Role.class, id);
+			log.debug("get successful");
+			return theRole;
+		} catch (Exception e) {
+			log.error("get failed", e);
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
-	public void remove(Role persistentInstance) {
-		// TODO Auto-generated method stub
-		
+	public void saveRole(Role theRole) throws RuntimeException {
+		log.debug("saving Role instance: " + theRole);
+
+		try {
+			// get the current hibernate session
+			Session currentSession = sessionFactory.getCurrentSession();
+			
+			// save or update Role
+			currentSession.saveOrUpdate(theRole);
+			log.debug("save successful");
+		} catch (Exception e) {
+			log.error("save failed", e);
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
-	public Role merge(Role detachedInstance) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void deleteRole(Integer id) throws RuntimeException {
+		log.debug("deleting Role id:" + id);
 
-	@Override
-	public Role findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			// get the current hibernate session
+			Session currentSession = sessionFactory.getCurrentSession();
+
+			// delete object with primary key
+			Query theQuery = currentSession.createQuery("delete from Role where id=:roleId");
+			theQuery.setParameter("roleId", id);
+			
+			log.debug("delete successful");
+		} catch (Exception e) {
+			log.error("delete failed", e);
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 }

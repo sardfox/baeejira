@@ -1,15 +1,14 @@
 package it.gruppostudio.baeejira.model;
-// Generated 12-giu-2017 18.26.46 by Hibernate Tools 5.1.4.Final
+// Generated 16-giu-2017 11.17.12 by Hibernate Tools 5.1.4.Final
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -30,23 +29,23 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String password;
 	private Date createTime;
-	private boolean active;
-	private List<Project> projects = new ArrayList<>();
-	private List<Task> tasks = new ArrayList<>();
-	private List<Role> roles = new ArrayList<>();
+	private byte active;
+	private Set<Project> projects = new HashSet<>(0);
+	private Set<Task> tasks = new HashSet<>(0);
+	private Set<Role> roles = new HashSet<>(0);
 
 	public User() {
 	}
 
-	public User(String username, String email, String password, boolean active) {
+	public User(String username, String email, String password, byte active) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.active = active;
 	}
 
-	public User(String username, String email, String password, Date createTime, boolean active, List<Project> projects, List<Task> tasks,
-			List<Role> roles) {
+	public User(String username, String email, String password, Date createTime, byte active, Set<Project> projects, Set<Task> tasks,
+			Set<Role> roles) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -58,7 +57,7 @@ public class User implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
@@ -107,11 +106,11 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "active", nullable = false)
-	public boolean getActive() {
+	public byte getActive() {
 		return this.active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
@@ -119,11 +118,11 @@ public class User implements java.io.Serializable {
 	@JoinTable(name = "project_has_user", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "project_id", nullable = false, updatable = false) })
-	public List<Project> getProjects() {
+	public Set<Project> getProjects() {
 		return this.projects;
 	}
 
-	public void setProjects(List<Project> projects) {
+	public void setProjects(Set<Project> projects) {
 		this.projects = projects;
 	}
 
@@ -131,11 +130,11 @@ public class User implements java.io.Serializable {
 	@JoinTable(name = "user_has_task", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "task_id", nullable = false, updatable = false) })
-	public List<Task> getTasks() {
+	public Set<Task> getTasks() {
 		return this.tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -143,11 +142,11 @@ public class User implements java.io.Serializable {
 	@JoinTable(name = "user_has_role", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "role_id", nullable = false, updatable = false) })
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return this.roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

@@ -1,14 +1,13 @@
 package it.gruppostudio.baeejira.model;
-// Generated 12-giu-2017 18.26.46 by Hibernate Tools 5.1.4.Final
+// Generated 16-giu-2017 11.17.12 by Hibernate Tools 5.1.4.Final
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,8 +25,8 @@ public class Project implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private String description;
-	private List<Task> tasks = new ArrayList<>();
-	private List<User> users = new ArrayList<>();
+	private Set<Task> tasks = new HashSet<>(0);
+	private Set<User> users = new HashSet<>(0);
 
 	public Project() {
 	}
@@ -36,7 +35,7 @@ public class Project implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Project(String name, String description, List<Task> tasks, List<User> users) {
+	public Project(String name, String description, Set<Task> tasks, Set<User> users) {
 		this.name = name;
 		this.description = description;
 		this.tasks = tasks;
@@ -44,7 +43,7 @@ public class Project implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
@@ -74,11 +73,11 @@ public class Project implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	public List<Task> getTasks() {
+	public Set<Task> getTasks() {
 		return this.tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -86,11 +85,11 @@ public class Project implements java.io.Serializable {
 	@JoinTable(name = "project_has_user", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "project_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

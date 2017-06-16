@@ -125,14 +125,14 @@ DROP TABLE IF EXISTS `task`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
   `start_date` timestamp NULL DEFAULT NULL,
   `end_date` timestamp NULL DEFAULT NULL,
-  `project_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`project_id`,`status_id`),
-  KEY `fk_task_project1_idx` (`project_id`),
+  `project_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `fk_task_status1_idx` (`status_id`),
+  KEY `fk_task_project1_idx` (`project_id`),
   CONSTRAINT `fk_task_project1` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_task_status1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -237,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-12 18:16:03
+-- Dump completed on 2017-06-16 11:39:00

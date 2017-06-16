@@ -1,7 +1,6 @@
 package it.gruppostudio.baeejira.dao;
 
 import it.gruppostudio.baeejira.model.Task;
-import it.gruppostudio.baeejira.model.TaskId;
 
 public interface TaskDAO {
 
@@ -11,6 +10,6 @@ public interface TaskDAO {
 
 	Task merge(Task detachedInstance);
 
-	Task findById(TaskId id);
+	Task findById(Integer id);
 
 }

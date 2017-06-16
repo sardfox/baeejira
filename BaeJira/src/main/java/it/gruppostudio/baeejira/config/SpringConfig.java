@@ -3,8 +3,6 @@ package it.gruppostudio.baeejira.config;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +18,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import it.gruppostudio.baeejira.dao.RoleDAO;
+import it.gruppostudio.baeejira.dao.RoleDAOImplSpring;
+import it.gruppostudio.baeejira.service.RoleService;
+import it.gruppostudio.baeejira.service.RoleServiceImpl;
 
 @Configuration
 @EnableWebMvc
@@ -38,7 +41,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
     @Value("${db.jdbcurl}")
     private String DB_URL;
  
-    @Value("${db.username}")
+    @Value("${db.user}")
     private String DB_USERNAME;
 	
 	@Bean
@@ -63,9 +66,9 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
             System.out.println("Cannot load datasource driver (com.mysql.jdbc.Driver) : " + pve.getMessage());
             return null;
         }
-        dataSource.setJdbcUrl(DB_PASSWORD);
-        dataSource.setUser(DB_URL);
-        dataSource.setPassword(DB_USERNAME);
+        dataSource.setJdbcUrl(DB_URL);
+        dataSource.setUser(DB_USERNAME);
+        dataSource.setPassword(DB_PASSWORD);
         dataSource.setMinPoolSize(5);
         dataSource.setMaxPoolSize(20);
         dataSource.setMaxIdleTime(3000);
@@ -73,11 +76,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
         return dataSource;
     }
 	
-	@Bean
+	@Bean(name = "sessionFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("it.gruppostudio.baeejira.entity");
+        sessionFactoryBean.setPackagesToScan("it.gruppostudio.baeejira.model");
         Properties hibernateProperties = new Properties();
         hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         hibernateProperties.put("hibernate.show_sql", true);
@@ -86,7 +89,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
         return sessionFactoryBean;
     }
 	
-	@Bean
+	@Bean(name = "transactionManager")
     public HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager =
                 new HibernateTransactionManager();
@@ -94,5 +97,16 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
         return transactionManager;
     }	
 	
+	// define bean for our sad fortune service
+	@Bean(name = "roleDAO")
+	public RoleDAO getRoleDAO() {
+		return new RoleDAOImplSpring();
+	}
+	
+	// define bean for our sad fortune service
+	@Bean(name = "roleService")
+	public RoleService getRoleService() {
+		return new RoleServiceImpl();
+	}
 	
 }

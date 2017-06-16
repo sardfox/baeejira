@@ -1,16 +1,17 @@
 package it.gruppostudio.baeejira.model;
-// Generated 12-giu-2017 18.26.46 by Hibernate Tools 5.1.4.Final
+// Generated 16-giu-2017 11.17.12 by Hibernate Tools 5.1.4.Final
 
-import java.util.ArrayList;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -26,25 +27,24 @@ import javax.persistence.TemporalType;
 @Table(name = "task", catalog = "mydb")
 public class Task implements java.io.Serializable {
 
-	private TaskId id;
+	private Integer id;
 	private Project project;
 	private Status status;
 	private String name;
 	private Date startDate;
 	private Date endDate;
-	private List<User> users = new ArrayList<>();
+	private Set<User> users = new HashSet<>(0);
 
 	public Task() {
 	}
 
-	public Task(TaskId id, Project project, Status status) {
-		this.id = id;
+	public Task(Project project, Status status, String name) {
 		this.project = project;
 		this.status = status;
+		this.name = name;
 	}
 
-	public Task(TaskId id, Project project, Status status, String name, Date startDate, Date endDate, List<User> users) {
-		this.id = id;
+	public Task(Project project, Status status, String name, Date startDate, Date endDate, Set<User> users) {
 		this.project = project;
 		this.status = status;
 		this.name = name;
@@ -53,21 +53,20 @@ public class Task implements java.io.Serializable {
 		this.users = users;
 	}
 
-	@EmbeddedId
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
-	@AttributeOverrides({ @AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
-			@AttributeOverride(name = "projectId", column = @Column(name = "project_id", nullable = false)),
-			@AttributeOverride(name = "statusId", column = @Column(name = "status_id", nullable = false)) })
-	public TaskId getId() {
+	@Column(name = "id", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(TaskId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "project_id", nullable = false)
 	public Project getProject() {
 		return this.project;
 	}
@@ -77,7 +76,7 @@ public class Task implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "status_id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "status_id", nullable = false)
 	public Status getStatus() {
 		return this.status;
 	}
@@ -86,7 +85,7 @@ public class Task implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "name", length = 45)
+	@Column(name = "name", nullable = false, length = 45)
 	public String getName() {
 		return this.name;
 	}
@@ -119,11 +118,11 @@ public class Task implements java.io.Serializable {
 	@JoinTable(name = "user_has_task", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "task_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

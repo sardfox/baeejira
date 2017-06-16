@@ -1,6 +1,7 @@
 package it.gruppostudio.baeejira.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import it.gruppostudio.baeejira.service.RoleService;
 public class HomeController {
 	// need to inject our customer service
 	@Autowired
+	@Qualifier("roleService")
 	private RoleService roleService;
 	
     @RequestMapping(path= "/")    

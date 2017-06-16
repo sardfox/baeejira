@@ -21,8 +21,12 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import it.gruppostudio.baeejira.dao.RoleDAO;
 import it.gruppostudio.baeejira.dao.RoleDAOImplSpring;
+import it.gruppostudio.baeejira.dao.UserDAO;
+import it.gruppostudio.baeejira.dao.UserDAOImpl;
 import it.gruppostudio.baeejira.service.RoleService;
 import it.gruppostudio.baeejira.service.RoleServiceImpl;
+import it.gruppostudio.baeejira.service.UserService;
+import it.gruppostudio.baeejira.service.UserServiceImpl;
 
 @Configuration
 @EnableWebMvc
@@ -107,6 +111,18 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
 	@Bean(name = "roleService")
 	public RoleService getRoleService() {
 		return new RoleServiceImpl();
+	}
+	
+	// define bean for our userDAO
+	@Bean(name = "userDAO")
+	public UserDAO getUserDAO() {
+		return new UserDAOImpl();
+	}
+	
+	// define bean for user service
+	@Bean(name = "userService")
+	public UserService getUserService() {
+		return new UserServiceImpl();
 	}
 	
 }

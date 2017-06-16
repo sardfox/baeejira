@@ -1,15 +1,17 @@
 package it.gruppostudio.baeejira.dao;
 
+import java.util.List;
+
 import it.gruppostudio.baeejira.model.User;
 
 public interface UserDAO {
 
-	void persist(User transientInstance);
+	public List<User> getUsers();
 
-	void remove(User persistentInstance);
+	public void saveUser(User theUser);
 
-	User merge(User detachedInstance);
+	public User getUser(int theId);
 
-	User findById(Integer id);
+	public void deleteUser(int theId);
 
 }

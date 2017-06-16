@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.JstlView;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import it.gruppostudio.baeejira.dao.RoleDAO;
-import it.gruppostudio.baeejira.dao.RoleDAOImplSpring;
+import it.gruppostudio.baeejira.dao.RoleDAOImpl;
 import it.gruppostudio.baeejira.service.RoleService;
 import it.gruppostudio.baeejira.service.RoleServiceImpl;
 
@@ -100,7 +100,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
 	// define bean for our sad fortune service
 	@Bean(name = "roleDAO")
 	public RoleDAO getRoleDAO() {
-		return new RoleDAOImplSpring();
+		return new RoleDAOImpl();
 	}
 	
 	// define bean for our sad fortune service

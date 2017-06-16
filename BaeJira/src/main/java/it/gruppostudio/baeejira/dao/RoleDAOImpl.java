@@ -20,9 +20,9 @@ import it.gruppostudio.baeejira.model.Role;
  * @author Hibernate Tools
  */
 @Repository
-public class RoleDAOImplSpring implements RoleDAO {
+public class RoleDAOImpl implements RoleDAO {
 
-	private static final Log log = LogFactory.getLog(RoleDAOImplSpring.class);
+	private static final Log log = LogFactory.getLog(RoleDAOImpl.class);
 
 	// need to inject the session factory
 	@Autowired

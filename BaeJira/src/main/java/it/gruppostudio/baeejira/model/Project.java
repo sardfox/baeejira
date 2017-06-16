@@ -93,4 +93,10 @@ public class Project implements java.io.Serializable {
 		this.users = users;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Project [id=%s, name=%s, description=%s, tasks=%s, users=%s]", id, name, description,
+				tasks, users);
+	}
+
 }

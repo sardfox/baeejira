@@ -70,4 +70,9 @@ public class Role implements java.io.Serializable {
 		this.users = users;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Role [id=%s, name=%s]", id, name);
+	}
+
 }

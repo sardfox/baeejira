@@ -65,7 +65,7 @@ public class Task implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_id", nullable = false)
 	public Project getProject() {
 		return this.project;
@@ -75,7 +75,7 @@ public class Task implements java.io.Serializable {
 		this.project = project;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_id", nullable = false)
 	public Status getStatus() {
 		return this.status;
@@ -114,7 +114,7 @@ public class Task implements java.io.Serializable {
 		this.endDate = endDate;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_has_task", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "task_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "user_id", nullable = false, updatable = false) })
@@ -124,6 +124,12 @@ public class Task implements java.io.Serializable {
 
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Task [id=%s, project=%s, status=%s, name=%s, startDate=%s, endDate=%s, users=%s]", id,
+				project, status, name, startDate, endDate, users);
 	}
 
 }

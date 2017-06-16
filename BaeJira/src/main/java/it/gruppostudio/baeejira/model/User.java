@@ -138,7 +138,7 @@ public class User implements java.io.Serializable {
 		this.tasks = tasks;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_has_role", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "role_id", nullable = false, updatable = false) })
@@ -148,6 +148,12 @@ public class User implements java.io.Serializable {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("User [id=%s, username=%s, email=%s, password=%s, createTime=%s, active=%s, roles=%s]", id,
+				username, email, password, createTime, active, roles);
 	}
 
 }

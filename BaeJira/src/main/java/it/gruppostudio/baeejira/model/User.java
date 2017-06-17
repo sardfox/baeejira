@@ -1,14 +1,17 @@
 package it.gruppostudio.baeejira.model;
 // Generated 16-giu-2017 11.17.12 by Hibernate Tools 5.1.4.Final
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -30,9 +33,9 @@ public class User implements java.io.Serializable {
 	private String password;
 	private Date createTime;
 	private byte active;
-	private Set<Project> projects = new HashSet<>(0);
-	private Set<Task> tasks = new HashSet<>(0);
-	private Set<Role> roles = new HashSet<>(0);
+	private List<Project> projects = new ArrayList<>(0);
+	private List<Task> tasks = new ArrayList<>(0);
+	private List<Role> roles = new ArrayList<>(0);
 
 	public User() {
 	}
@@ -44,8 +47,8 @@ public class User implements java.io.Serializable {
 		this.active = active;
 	}
 
-	public User(String username, String email, String password, Date createTime, byte active, Set<Project> projects, Set<Task> tasks,
-			Set<Role> roles) {
+	public User(String username, String email, String password, Date createTime, byte active, List<Project> projects, List<Task> tasks,
+			List<Role> roles) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -118,11 +121,11 @@ public class User implements java.io.Serializable {
 	@JoinTable(name = "project_has_user", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "project_id", nullable = false, updatable = false) })
-	public Set<Project> getProjects() {
+	public List<Project> getProjects() {
 		return this.projects;
 	}
 
-	public void setProjects(Set<Project> projects) {
+	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
 
@@ -130,23 +133,23 @@ public class User implements java.io.Serializable {
 	@JoinTable(name = "user_has_task", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "task_id", nullable = false, updatable = false) })
-	public Set<Task> getTasks() {
+	public List<Task> getTasks() {
 		return this.tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinTable(name = "user_has_role", catalog = "mydb", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "role_id", nullable = false, updatable = false) })
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return this.roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

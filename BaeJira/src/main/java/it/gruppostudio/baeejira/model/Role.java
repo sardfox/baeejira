@@ -72,7 +72,23 @@ public class Role implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("Role [id=%s, name=%s]", id, name);
+		return String.format("[id=%s, name=%s]", id, name);
 	}
+	
+    @Override
+    public int hashCode() {
+        return new Long(id).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (! (obj instanceof Role)) {
+            return false;
+        }
+        return this.id == ((Role)obj).getId();
+    }
 
 }

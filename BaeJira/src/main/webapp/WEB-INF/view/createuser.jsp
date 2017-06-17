@@ -37,10 +37,17 @@
 						<td><form:input path="email" /></td>
 					</tr>
 
-					<tr>
-						<td><label>Password:</label></td>
-						<td><form:input path="password" /></td>
-					</tr>
+                    <tr>
+                        <td><label>Password:</label></td>
+                        <td><form:password path="password" /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label>Ruoli:</label></td>
+                        <td>
+                        <form:checkboxes items="${roles}" path="roles" itemValue="id" itemLabel="name" />
+                        </td>
+                    </tr>
 
 					<tr>
 						<td><label></label></td>

@@ -5,52 +5,57 @@
 	id="WebApp_ID" version="3.1">
 
 	<display-name>bae-e-jira</display-name>
+	
+    <!-- Step 1: Configure Spring MVC Dispatcher Servlet -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>
+                org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+            </param-value>
+        </init-param>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>it.gruppostudio.baeejira.config.SpringConfig</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Step 2: Set up URL mapping for Spring MVC Dispatcher Servlet -->
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
+
+<!-- MI SA CHE QUESTI SOTTO NON SERVONO -->
 
 	<!-- Spring MVC Configs -->
 	
 		<!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
 	       instead of the default XmlWebApplicationContext -->
-	  <context-param>
-	      <param-name>contextClass</param-name>
-	      <param-value>
-	          org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-	      </param-value>
-	  </context-param>
+<!-- 	  <context-param> -->
+<!-- 	      <param-name>contextClass</param-name> -->
+<!-- 	      <param-value> -->
+<!-- 	          org.springframework.web.context.support.AnnotationConfigWebApplicationContext -->
+<!-- 	      </param-value> -->
+<!-- 	  </context-param> -->
 	
 	  <!-- Configuration locations must consist of one or more comma- or space-delimited
 	       fully-qualified @Configuration classes. Fully-qualified packages may also be
 	       specified for component-scanning -->
-	  <context-param>
-	      <param-name>contextConfigLocation</param-name>
-	      <param-value>it.gruppostudio.baeejira.config.SpringConfig</param-value>
-	  </context-param>
+<!-- 	  <context-param> -->
+<!-- 	      <param-name>contextConfigLocation</param-name> -->
+<!-- 	      <param-value>it.gruppostudio.baeejira.config.SpringConfig</param-value> -->
+<!-- 	  </context-param> -->
 	
 	  <!-- Bootstrap the root application context as usual using ContextLoaderListener -->
-	  <listener>
-	      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	  </listener>
+<!-- 	  <listener> -->
+<!-- 	      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+<!-- 	  </listener> -->
 
-	<!-- Step 1: Configure Spring MVC Dispatcher Servlet -->
-	<servlet>
-		<servlet-name>dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-	        <param-name>contextClass</param-name>
-	        <param-value>
-	            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-	        </param-value>
-	    </init-param>
-	    <init-param>
-	        <param-name>contextConfigLocation</param-name>
-	        <param-value>it.gruppostudio.baeejira.config.SpringConfig</param-value>
-	    </init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<!-- Step 2: Set up URL mapping for Spring MVC Dispatcher Servlet -->
-	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
 	
 </web-app>

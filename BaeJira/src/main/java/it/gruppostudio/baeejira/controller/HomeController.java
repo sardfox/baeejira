@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,7 +45,24 @@ public class HomeController {
     @GetMapping(path= "/createuser")    
     public String createuser(Model theModel){
     	
-    	User theUser = new User();    	
+    	User theUser = new User();
+    	
+    	theModel.addAttribute("pageTitle", "Crea Utente");
+    	
+    	return setUserForm(theModel, theUser);
+    }
+    
+    @GetMapping(path= "/edituser/{id}")    
+    public String editUser(Model theModel, @PathParam("id") String userId) {
+
+    	User theUser = userService.getUser(new Integer(userId));
+
+    	theModel.addAttribute("pageTitle", "Modifica Utente");
+    	return setUserForm(theModel, theUser);
+    }
+    
+    private String setUserForm(Model theModel, User theUser) {
+
     	theModel.addAttribute("user",theUser);
     	
     	theModel.addAttribute("roles", roleService.getRoles());
@@ -52,7 +70,7 @@ public class HomeController {
     }
     
     @PostMapping(path="saveUser")
-    public String saveuser(@ModelAttribute("user") @Valid User theUser, Model theModel, BindingResult result ){
+    public String saveuser(Model theModel, @ModelAttribute("user") @Valid User theUser, BindingResult result ){
 
     	log.debug(theUser);
     	

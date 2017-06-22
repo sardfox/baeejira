@@ -13,6 +13,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -48,7 +49,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
     @Value("${db.user}")
     private String DB_USERNAME;
 	
-	@Bean
+	@Bean(name = "viewResolver")
     public ViewResolver viewResolver() {
 
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -58,6 +59,13 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
         return viewResolver;
 
     }
+	
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/resources/**")
+	    		.addResourceLocations("/resources/")
+	    		.setCachePeriod(31556926);
+	}
 	
 	@Bean(name = "dataSource")
     public ComboPooledDataSource dataSource() {
@@ -101,13 +109,13 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
         return transactionManager;
     }	
 	
-	// define bean for our sad fortune service
+	// define bean for our roleDAO
 	@Bean(name = "roleDAO")
 	public RoleDAO getRoleDAO() {
 		return new RoleDAOImpl();
 	}
 	
-	// define bean for our sad fortune service
+	// define bean for our roleService
 	@Bean(name = "roleService")
 	public RoleService getRoleService() {
 		return new RoleServiceImpl();
@@ -119,7 +127,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
 		return new UserDAOImpl();
 	}
 	
-	// define bean for user service
+	// define bean for user userService
 	@Bean(name = "userService")
 	public UserService getUserService() {
 		return new UserServiceImpl();

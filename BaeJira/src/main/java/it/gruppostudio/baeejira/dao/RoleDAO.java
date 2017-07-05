@@ -17,8 +17,9 @@ public interface RoleDAO {
 	 * Delete the Role instance
 	 * @param id
 	 * 			the Role identifier
+	 * @return 
 	 */
-	public void deleteRole(Integer id) throws RuntimeException;
+	public int deleteRole(Integer id) throws RuntimeException;
 
 	/**
 	 * Retrieve a Role by id

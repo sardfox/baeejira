@@ -85,7 +85,7 @@ public class RoleDAOImpl implements RoleDAO {
 	}
 
 	@Override
-	public void deleteRole(Integer id) throws RuntimeException {
+	public int deleteRole(Integer id) throws RuntimeException {
 		log.debug("deleting Role id:" + id);
 
 		try {
@@ -96,7 +96,10 @@ public class RoleDAOImpl implements RoleDAO {
 			Query theQuery = currentSession.createQuery("delete from Role where id=:roleId");
 			theQuery.setParameter("roleId", id);
 			
+			int result = theQuery.executeUpdate();
+			
 			log.debug("delete successful");
+			return result;
 		} catch (Exception e) {
 			log.error("delete failed", e);
 			throw new RuntimeException(e.getMessage());
